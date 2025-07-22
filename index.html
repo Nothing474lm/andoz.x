@@ -1,0 +1,1180 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Academia de Branding - Aprende los Fundamentos</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #ffffff;
+            color: #000000;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* NAVEGACIÓN INTERACTIVA */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 2rem;
+            transition: all 0.3s ease;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .navbar.scrolled {
+            background: rgba(0, 0, 0, 0.95);
+            color: white;
+        }
+        
+        .navbar.scrolled .nav-item {
+            color: white;
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.1);
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-item {
+            cursor: pointer;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-item:hover {
+            background-color: #000000;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .navbar.scrolled .nav-item:hover {
+            background-color: #ffffff;
+            color: black;
+        }
+
+        /* HERO SECTION INTERACTIVA */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background: linear-gradient(135deg, #ffffff 0%, #f5f5f5 100%);
+            overflow: hidden;
+        }
+
+        .hero-content {
+            text-align: center;
+            z-index: 2;
+            max-width: 800px;
+            padding: 0 2rem;
+        }
+
+        .hero-title {
+            font-size: 4rem;
+            font-weight: 300;
+            margin-bottom: 1rem;
+            opacity: 0;
+            transform: translateY(50px);
+            animation: fadeInUp 1s ease 0.5s forwards;
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            opacity: 0;
+            transform: translateY(50px);
+            animation: fadeInUp 1s ease 0.7s forwards;
+            font-weight: 300;
+        }
+
+        .interactive-button {
+            background: transparent;
+            border: 2px solid #000000;
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateY(50px);
+            animation: fadeInUp 1s ease 0.9s forwards;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .interactive-button:hover {
+            background-color: #000000;
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        /* FLOATING ELEMENTS */
+        .floating-element {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            border: 1px solid #000000;
+            animation: float 6s ease-in-out infinite;
+            opacity: 0.1;
+        }
+
+        .floating-element:nth-child(1) { top: 20%; left: 10%; animation-delay: 0s; }
+        .floating-element:nth-child(2) { top: 60%; right: 15%; animation-delay: -2s; border-radius: 50%;}
+        .floating-element:nth-child(3) { bottom: 30%; left: 70%; animation-delay: -4s; transform: rotate(45deg); }
+
+        /* SECCIÓN DE PRINCIPIOS INTERACTIVOS */
+        .principles-section {
+            padding: 8rem 2rem;
+            background-color: #000000;
+            color: white;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 3rem;
+            font-weight: 300;
+            margin-bottom: 4rem;
+        }
+
+        .principles-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 3rem;
+        }
+
+        .principle-card {
+            background: white;
+            color: black;
+            padding: 3rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .principle-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(255, 255, 255, 0.1);
+        }
+
+        .principle-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0,0,0, 0.05), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .principle-card:hover::before { left: 100%; }
+        .principle-number { font-size: 4rem; font-weight: bold; opacity: 0.2; position: absolute; top: 1rem; right: 2rem; }
+        .principle-title { font-size: 1.5rem; font-weight: bold; margin-bottom: 1rem; }
+        .principle-description { font-size: 1rem; line-height: 1.6; margin-bottom: 1.5rem; }
+
+        .expand-btn {
+            background: transparent;
+            border: 1px solid #000000;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .expand-btn:hover { background-color: #000000; color: white; }
+
+        .expanded-content {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid #e0e0e0;
+            display: none;
+            animation: slideDown 0.5s ease;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+        }
+        
+        .expanded-content.show { display: block; max-height: 500px; }
+
+
+        /* SECCIÓN DE TIPOGRAFÍA INTERACTIVA */
+        .typography-section { padding: 8rem 2rem; background-color: #ffffff; }
+
+        .typography-playground {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .typography-controls { display: flex; flex-direction: column; gap: 2rem; }
+        .control-group { display: flex; flex-direction: column; gap: 0.5rem; }
+        .control-label { font-weight: bold; font-size: 1rem; }
+
+        input[type="range"] {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 5px;
+            background: #e0e0e0;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            background: #000000;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-radius: 50%;
+        }
+
+        .font-selector { padding: 1rem; border: 1px solid #000000; background: transparent; font-size: 1rem; cursor: pointer; }
+
+        .typography-preview {
+            background: #f5f5f5;
+            padding: 3rem;
+            border: 1px solid #e0e0e0;
+            min-height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .preview-text { text-align: center; transition: all 0.3s ease; }
+
+        /* SECCIÓN DE COLORES INTERACTIVA */
+        .colors-section { padding: 8rem 2rem; background-color: #000000; color: white; }
+        .color-theory-container { max-width: 1400px; margin: 0 auto; }
+        .color-wheel-container { display: flex; justify-content: center; margin: 2rem 0; }
+
+        .color-wheel {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: conic-gradient(#ff0000, #ffff00, #00ff00, #00ffff, #0000ff, #ff00ff, #ff0000);
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .color-wheel:hover { transform: scale(1.05); }
+
+        .color-picker-dot {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: white;
+            border: 2px solid black;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            left: 50%;
+            top: 50%;
+            transition: all 0.1s ease;
+        }
+
+        .color-info { text-align: center; margin: 2rem 0; }
+        #selectedColorBox { width: 100px; height: 100px; margin: 0 auto 1rem; border: 2px solid white; }
+        #selectedColorText { font-size: 1.2rem; font-family: monospace; }
+        
+        .color-combinations {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        .color-combo-card { background: white; color: black; padding: 2rem; }
+        .color-swatches { display: flex; gap: 0.5rem; margin-bottom: 1rem; }
+        .color-swatch { width: 40px; height: 40px; border: 1px solid #e0e0e0; }
+
+        /* SECCIÓN DE LOGOS INTERACTIVA */
+        .logo-section { padding: 8rem 2rem; background-color: #ffffff; }
+
+        .logo-builder {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 4rem;
+        }
+
+        .logo-controls { display: flex; flex-direction: column; gap: 2rem; }
+
+        .shape-selector {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+
+        .shape-btn {
+            padding: 1rem;
+            border: 2px solid #e0e0e0;
+            background: transparent;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex; align-items: center; justify-content: center;
+        }
+
+        .shape-btn:hover, .shape-btn.active { border-color: #000000; background-color: #f0f0f0; }
+        .shape-btn svg { width: 40px; height: 40px; }
+        
+        #logoTextInput { width: 100%; padding: 1rem; border: 1px solid #000; }
+
+        .logo-preview {
+            background: #f5f5f5;
+            padding: 3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 400px;
+            border: 1px solid #e0e0e0;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        #logoPreviewIcon { transition: all 0.3s ease; }
+        #logoPreviewText { transition: all 0.3s ease; font-weight: bold; }
+
+        /* SECCIÓN DE CASOS DE ESTUDIO */
+        .case-studies-section { padding: 8rem 2rem; background-color: #000000; color: white; }
+
+        .case-studies-grid {
+            max-width: 1400px; margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 3rem;
+        }
+
+        .case-study-card {
+            background: white; color: black;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .case-study-card:hover { transform: translateY(-10px); box-shadow: 0 25px 50px rgba(255, 255, 255, 0.1); }
+        .case-study-image { height: 250px; background-size: cover; background-position: center; }
+        .case-study-content { padding: 2rem; }
+        .case-study-title { font-size: 1.5rem; font-weight: bold; margin-bottom: 1rem; }
+        .case-study-description { margin-bottom: 1.5rem; line-height: 1.6; }
+        .metrics { display: flex; gap: 2rem; margin-bottom: 1.5rem; }
+        .metric { text-align: center; }
+        .metric-number { font-size: 2rem; font-weight: bold; display: block; }
+        .metric-label { font-size: 0.9rem; opacity: 0.7; }
+        
+        /* SECCIÓN DE HERRAMIENTAS INTERACTIVAS */
+        .tools-section { padding: 8rem 2rem; background-color: #ffffff; }
+
+        .tools-grid {
+            max-width: 1400px; margin: 0 auto;
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+        }
+
+        .tool-card {
+            border: 2px solid #e0e0e0; padding: 3rem; text-align: center;
+            transition: all 0.3s ease; cursor: pointer; position: relative; overflow: hidden;
+        }
+
+        .tool-card:hover { border-color: #000000; transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1); }
+        .tool-icon {
+            width: 80px; height: 80px; border: 2px solid #000000; border-radius: 50%;
+            margin: 0 auto 2rem; display: flex; align-items: center; justify-content: center;
+            font-size: 2rem; font-weight: bold; transition: all 0.3s ease;
+        }
+        .tool-card:hover .tool-icon { background-color: #000000; color: white; transform: rotate(360deg); }
+        .tool-title { font-size: 1.5rem; font-weight: bold; margin-bottom: 1rem; }
+        .tool-description { margin-bottom: 2rem; line-height: 1.6; }
+
+        .try-tool-btn {
+            background: transparent; border: 2px solid #000000; padding: 1rem 2rem;
+            cursor: pointer; transition: all 0.3s ease; font-weight: bold;
+        }
+        .try-tool-btn:hover { background-color: #000000; color: white; }
+
+        /* MODAL PARA HERRAMIENTAS */
+        .modal {
+            display: none; position: fixed; z-index: 2000;
+            left: 0; top: 0; width: 100%; height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            align-items: center; justify-content: center;
+        }
+        .modal.show { display: flex; }
+
+        .modal-content {
+            background-color: white; padding: 3rem;
+            width: 90%; max-width: 800px; position: relative;
+            animation: modalSlideIn 0.3s ease;
+        }
+
+        .close-modal {
+            position: absolute; top: 1rem; right: 2rem;
+            font-size: 2rem; cursor: pointer; transition: all 0.3s ease; font-weight: bold;
+        }
+        .close-modal:hover { transform: scale(1.2) rotate(90deg); }
+
+        #modalTitle { font-size: 2rem; margin-bottom: 1.5rem; }
+        #modalBody { font-size: 1.1rem; line-height: 1.7; }
+        
+        /* SECCIÓN DE RECURSOS */
+        .resources-section { padding: 8rem 2rem; background-color: #f5f5f5; }
+        .resources-container { max-width: 1200px; margin: 0 auto; }
+        .resource-tabs { display: flex; gap: 1rem; margin-bottom: 3rem; justify-content: center; flex-wrap: wrap; }
+        .tab-btn {
+            padding: 1rem 2rem; background: transparent; border: 2px solid #000000;
+            cursor: pointer; transition: all 0.3s ease; font-weight: bold;
+        }
+        .tab-btn:hover, .tab-btn.active { background-color: #000000; color: white; }
+        .tab-content { display: none; animation: fadeIn 0.5s ease; }
+        .tab-content.active { display: block; }
+
+        .resource-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;
+        }
+        .resource-item {
+            background: white; padding: 2rem; border: 1px solid #e0e0e0;
+            transition: all 0.3s ease;
+        }
+        .resource-item:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1); }
+        .resource-item h4 { margin-bottom: 0.5rem; font-size: 1.2rem; }
+        .resource-item a { text-decoration: none; color: #000; font-weight: bold; }
+
+        /* FOOTER INTERACTIVO */
+        .footer { background-color: #000000; color: white; padding: 6rem 2rem 3rem; }
+
+        .footer-content {
+            max-width: 1400px; margin: 0 auto;
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+        }
+
+        .footer-section h3 { font-size: 1.5rem; margin-bottom: 1.5rem; font-weight: 300; }
+        .footer-link {
+            display: block; color: white; text-decoration: none; padding: 0.5rem 0;
+            transition: all 0.3s ease; position: relative;
+        }
+        .footer-link:hover { padding-left: 1.5rem; opacity: 0.8; }
+        .footer-link::before {
+            content: '→'; position: absolute; left: -20px; opacity: 0; transition: all 0.3s ease;
+        }
+        .footer-link:hover::before { opacity: 1; left: 0; }
+
+        .newsletter-form { display: flex; gap: 1rem; margin-top: 1rem; }
+        .newsletter-input {
+            flex: 1; padding: 1rem; border: 1px solid #333;
+            background: transparent; color: white;
+        }
+        .newsletter-input::placeholder { color: #ccc; }
+        .newsletter-btn {
+            padding: 1rem 2rem; background: white; color: black;
+            border: none; cursor: pointer; transition: all 0.3s ease; font-weight: bold;
+        }
+        .newsletter-btn:hover { background: #f0f0f0; transform: translateY(-2px); }
+        .footer-bottom { text-align: center; margin-top: 4rem; padding-top: 2rem; border-top: 1px solid #333; opacity: 0.7; }
+
+        /* SCROLL INDICATOR */
+        .scroll-indicator {
+            position: fixed; top: 0; left: 0; width: 100%; height: 4px; background: transparent; z-index: 1001;
+        }
+        .scroll-progress { height: 100%; background: #000000; width: 0%; transition: width 0.05s ease; }
+        .navbar.scrolled .scroll-progress { background: #ffffff; }
+
+        /* ANIMACIONES */
+        @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
+        @keyframes float { 0%, 100% { transform: translateY(0px) rotate(0deg); } 50% { transform: translateY(-20px) rotate(10deg); } }
+        @keyframes slideDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes modalSlideIn { from { opacity: 0; transform: translateY(-50px) scale(0.95); } to { opacity: 1; transform: translateY(0) scale(1); } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        /* RESPONSIVE */
+        @media (max-width: 992px) {
+            .typography-playground, .logo-builder { grid-template-columns: 1fr; gap: 3rem; }
+        }
+
+        @media (max-width: 768px) {
+            .hero-title { font-size: 2.5rem; }
+            .hero-subtitle { font-size: 1.2rem; }
+            .nav-menu { display: none; /* O implementar un menú hamburguesa */ }
+            .principles-grid, .case-studies-grid, .tools-grid { grid-template-columns: 1fr; }
+            .resource-tabs { gap: 0.5rem; }
+            .tab-btn { padding: 0.8rem 1.2rem; font-size: 0.9rem; }
+            .footer-content { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="scroll-indicator">
+        <div class="scroll-progress" id="scrollProgress"></div>
+    </div>
+
+    <nav class="navbar" id="navbar">
+        <div class="nav-content">
+            <div class="logo" onclick="scrollToSection('hero')">BRAND ACADEMY</div>
+            <div class="nav-menu">
+                <div class="nav-item" onclick="scrollToSection('principles')">Principios</div>
+                <div class="nav-item" onclick="scrollToSection('typography')">Tipografía</div>
+                <div class="nav-item" onclick="scrollToSection('colors')">Colores</div>
+                <div class="nav-item" onclick="scrollToSection('logos')">Logos</div>
+                <div class="nav-item" onclick="scrollToSection('cases')">Casos</div>
+                <div class="nav-item" onclick="scrollToSection('tools')">Herramientas</div>
+                <div class="nav-item" onclick="scrollToSection('resources')">Recursos</div>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero" id="hero">
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+        
+        <div class="hero-content">
+            <h1 class="hero-title">CONSTRUYE MARCAS MEMORABLES</h1>
+            <p class="hero-subtitle">Domina los fundamentos del branding a través de experiencias interactivas y funcionales.</p>
+            <button class="interactive-button" onclick="scrollToSection('principles')">
+                Comenzar el Viaje
+            </button>
+        </div>
+    </section>
+
+    <section class="principles-section" id="principles">
+        <h2 class="section-title">Los 6 Pilares del Branding</h2>
+        <div class="principles-grid">
+            <div class="principle-card">
+                <div class="principle-number">01</div>
+                <h3 class="principle-title">CONSISTENCIA</h3>
+                <p class="principle-description">La base de una marca fuerte. Todos los elementos visuales y de comunicación deben trabajar en armonía.</p>
+                <button class="expand-btn">Ver más detalles</button>
+                <div class="expanded-content">
+                    <p><strong>¿Por qué es importante?</strong> La consistencia genera confianza y reconocimiento. Una marca consistente es una marca predecible y fiable para el consumidor.</p><br>
+                    <p><strong>Elementos clave:</strong> Paleta de colores, tipografía, tono de voz y aplicación del logo deben ser uniformes en todos los puntos de contacto.</p>
+                </div>
+            </div>
+            <div class="principle-card">
+                <div class="principle-number">02</div>
+                <h3 class="principle-title">DIFERENCIACIÓN</h3>
+                <p class="principle-description">Tu marca debe destacar. La diferenciación clara es lo que hace que los consumidores te elijan a ti y no a la competencia.</p>
+                <button class="expand-btn">Ver más detalles</button>
+                <div class="expanded-content">
+                    <p><strong>Estrategias:</strong> Propuesta de valor única, personalidad de marca distintiva, experiencia de usuario superior o innovación en productos.</p><br>
+                    <p><strong>Ejemplo:</strong> Apple se diferenció con diseño y simplicidad en un mercado centrado en especificaciones técnicas.</p>
+                </div>
+            </div>
+            <div class="principle-card">
+                <div class="principle-number">03</div>
+                <h3 class="principle-title">RELEVANCIA</h3>
+                <p class="principle-description">Una marca debe ser relevante para su audiencia. Conocer a fondo a tu cliente es fundamental para conectar.</p>
+                <button class="expand-btn">Ver más detalles</button>
+                <div class="expanded-content">
+                    <p><strong>Investigación de Audiencia:</strong> Utiliza encuestas, entrevistas y análisis de datos para entender las necesidades, deseos y "pain points" de tu público.</p><br>
+                    <p><strong>Adaptación:</strong> Las audiencias evolucionan. Tu marca debe adaptarse a los cambios culturales y sociales para no perder relevancia.</p>
+                </div>
+            </div>
+            <div class="principle-card">
+                <div class="principle-number">04</div>
+                <h3 class="principle-title">MEMORABILIDAD</h3>
+                <p class="principle-description">Los elementos de tu marca deben ser fáciles de recordar. La simplicidad y la originalidad son tus mejores aliados.</p>
+                <button class="expand-btn">Ver más detalles</button>
+                <div class="expanded-content">
+                    <p><strong>Elementos Memorables:</strong> Logos simples, eslóganes pegadizos, colores distintivos o incluso un sonido característico (audio branding).</p><br>
+                    <p><strong>Test de Memoria:</strong> ¿Puede un cliente dibujar tu logo o recordar tu eslogan después de verlo una sola vez? Ese es el objetivo.</p>
+                </div>
+            </div>
+            <div class="principle-card">
+                <div class="principle-number">05</div>
+                <h3 class="principle-title">FLEXIBILIDAD</h3>
+                <p class="principle-description">Tu marca debe funcionar en diferentes medios y contextos sin perder su esencia o impacto visual.</p>
+                <button class="expand-btn">Ver más detalles</button>
+                <div class="expanded-content">
+                    <p><strong>Aplicaciones:</strong> Tu identidad debe verse bien en un favicon de 16px, en una valla publicitaria, en formato digital e impreso.</p><br>
+                    <p><strong>Sistemas de Diseño:</strong> Desarrolla un sistema de marca (con versiones del logo, paletas secundarias, etc.) que permita adaptaciones controladas.</p>
+                </div>
+            </div>
+            <div class="principle-card">
+                <div class="principle-number">06</div>
+                <h3 class="principle-title">CREDIBILIDAD</h3>
+                <p class="principle-description">Tu marca debe cumplir lo que promete. La confianza es un activo invaluable que se construye con el tiempo.</p>
+                <button class="expand-btn">Ver más detalles</button>
+                <div class="expanded-content">
+                    <p><strong>Construir Confianza:</strong> Se logra a través de la calidad del producto/servicio, testimonios, transparencia y un excelente servicio al cliente.</p><br>
+                    <p><strong>Consecuencias:</strong> Una promesa de marca rota puede dañar la reputación de forma irreparable. La autenticidad es clave.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="typography-section" id="typography">
+        <h2 class="section-title">Laboratorio de Tipografía</h2>
+        <div class="typography-playground">
+            <div class="typography-controls">
+                <div class="control-group">
+                    <label class="control-label" for="fontSizeSlider">Tamaño de Fuente (<span id="fontSizeValue">16</span>px)</label>
+                    <input type="range" id="fontSizeSlider" class="slider" min="12" max="72" value="16">
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="lineHeightSlider">Interlineado (<span id="lineHeightValue">1.6</span>)</label>
+                    <input type="range" id="lineHeightSlider" class="slider" min="1" max="3" value="1.6" step="0.1">
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="fontFamilySelector">Familia de Fuente</label>
+                    <select id="fontFamilySelector" class="font-selector">
+                        <option value="'Georgia', serif">Georgia (Serif)</option>
+                        <option value="'Arial', sans-serif" selected>Arial (Sans-serif)</option>
+                        <option value="'Courier New', monospace">Courier New (Monospace)</option>
+                        <option value="'Brush Script MT', cursive">Brush Script (Cursive)</option>
+                    </select>
+                </div>
+            </div>
+            <div class="typography-preview">
+                <h3 class="preview-text" id="typographyPreviewText">La tipografía es la voz de tu marca. Haz que hable claro.</h3>
+            </div>
+        </div>
+    </section>
+
+    <section class="colors-section" id="colors">
+        <h2 class="section-title">Explorador de Color</h2>
+        <div class="color-theory-container">
+            <div class="color-wheel-container">
+                <canvas id="colorWheelCanvas" class="color-wheel" width="300" height="300"></canvas>
+                <div class="color-picker-dot" id="colorPickerDot"></div>
+            </div>
+            <div class="color-info">
+                <div id="selectedColorBox"></div>
+                <p id="selectedColorText">#FFFFFF</p>
+            </div>
+            <div class="color-combinations" id="colorCombinations">
+                 <div class="color-combo-card">
+                    <h4>Monocromática</h4>
+                    <div class="color-swatches">
+                        <div class="color-swatch"></div> <div class="color-swatch"></div> <div class="color-swatch"></div> <div class="color-swatch"></div>
+                    </div>
+                </div>
+                 <div class="color-combo-card">
+                    <h4>Análoga</h4>
+                    <div class="color-swatches">
+                        <div class="color-swatch"></div> <div class="color-swatch"></div> <div class="color-swatch"></div> <div class="color-swatch"></div>
+                    </div>
+                </div>
+                <div class="color-combo-card">
+                    <h4>Complementaria</h4>
+                    <div class="color-swatches">
+                        <div class="color-swatch"></div> <div class="color-swatch"></div> <div class="color-swatch"></div> <div class="color-swatch"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="logo-section" id="logos">
+        <h2 class="section-title">Constructor de Logos</h2>
+        <div class="logo-builder">
+            <div class="logo-controls">
+                <div class="control-group">
+                    <label class="control-label">Texto del Logo</label>
+                    <input type="text" id="logoTextInput" value="MiMarca">
+                </div>
+                <div class="control-group">
+                    <label class="control-label">Ícono</label>
+                    <div class="shape-selector" id="shapeSelector">
+                        <button class="shape-btn active" data-shape="circle"><svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="45"/></svg></button>
+                        <button class="shape-btn" data-shape="square"><svg viewBox="0 0 100 100"><rect x="5" y="5" width="90" height="90"/></svg></button>
+                        <button class="shape-btn" data-shape="triangle"><svg viewBox="0 0 100 100"><polygon points="50,5 95,95 5,95"/></svg></button>
+                        <button class="shape-btn" data-shape="hexagon"><svg viewBox="0 0 100 100"><polygon points="75,5 95,50 75,95 25,95 5,50 25,5"/></svg></button>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="iconSizeSlider">Tamaño Ícono (<span id="iconSizeValue">60</span>px)</label>
+                    <input type="range" id="iconSizeSlider" min="20" max="150" value="60">
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="logoTextSizeSlider">Tamaño Texto (<span id="logoTextSizeValue">24</span>px)</label>
+                    <input type="range" id="logoTextSizeSlider" min="12" max="48" value="24">
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="iconColorPicker">Color Ícono</label>
+                    <input type="color" id="iconColorPicker" value="#000000" style="width:100%; height: 40px; border:none; padding:0;">
+                </div>
+            </div>
+            <div class="logo-preview">
+                <div id="logoPreviewIcon" style="width: 60px; height: 60px; fill: #000000;">
+                    </div>
+                <div id="logoPreviewText" style="font-size: 24px;">MiMarca</div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="case-studies-section" id="cases">
+        <h2 class="section-title">Casos de Estudio</h2>
+        <div class="case-studies-grid">
+            <div class="case-study-card">
+                <div class="case-study-image" style="background-image: url('https://images.unsplash.com/photo-1557804506-669a67965ba0?q=80&w=2574&auto=format&fit=crop');"></div>
+                <div class="case-study-content">
+                    <h3 class="case-study-title">Rebranding de "Nómada Café"</h3>
+                    <p class="case-study-description">Transformamos una cafetería local en una marca reconocida por su estética artesanal y su conexión con la comunidad, logrando un impacto medible.</p>
+                    <div class="metrics">
+                        <div class="metric"><span class="metric-number" data-count="40">0</span>% <span class="metric-label">Aumento Ventas</span></div>
+                        <div class="metric"><span class="metric-number" data-count="90">0</span>% <span class="metric-label">Reconocimiento</span></div>
+                        <div class="metric"><span class="metric-number" data-count="60">0</span>% <span class="metric-label">Engagement</span></div>
+                    </div>
+                </div>
+            </div>
+            <div class="case-study-card">
+                <div class="case-study-image" style="background-image: url('https://images.unsplash.com/photo-1522199755839-a2bacb67c546?q=80&w=2672&auto=format&fit=crop');"></div>
+                <div class="case-study-content">
+                    <h3 class="case-study-title">Identidad para "TechFlow"</h3>
+                    <p class="case-study-description">Diseñamos una identidad visual flexible y moderna para una startup de SaaS, permitiendo una comunicación clara y consistente en su fase de crecimiento.</p>
+                    <div class="metrics">
+                        <div class="metric"><span class="metric-number" data-count="150">0</span>% <span class="metric-label">Crecimiento Leads</span></div>
+                        <div class="metric"><span class="metric-number" data-count="25">0</span>M <span class="metric-label">Ronda Semilla</span></div>
+                        <div class="metric"><span class="metric-number" data-count="75">0</span>% <span class="metric-label">Confianza Inversor</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="tools-section" id="tools">
+        <h2 class="section-title">Herramientas Prácticas</h2>
+        <div class="tools-grid">
+            <div class="tool-card" data-tool="name">
+                <div class="tool-icon">N</div>
+                <h3 class="tool-title">Generador de Nombres</h3>
+                <p class="tool-description">Supera el bloqueo creativo y encuentra nombres de marca únicos y disponibles.</p>
+                <button class="try-tool-btn">Probar Herramienta</button>
+            </div>
+            <div class="tool-card" data-tool="palette">
+                <div class="tool-icon">P</div>
+                <h3 class="tool-title">Creador de Paletas</h3>
+                <p class="tool-description">Genera paletas de colores armoniosas a partir de una imagen o un color base.</p>
+                <button class="try-tool-btn">Probar Herramienta</button>
+            </div>
+            <div class="tool-card" data-tool="voice">
+                <div class="tool-icon">V</div>
+                <h3 class="tool-title">Definidor de Voz</h3>
+                <p class="tool-description">Define el tono y la personalidad de tu marca con una guía paso a paso.</p>
+                <button class="try-tool-btn">Probar Herramienta</button>
+            </div>
+        </div>
+    </section>
+
+    <div class="modal" id="toolModal">
+        <div class="modal-content">
+            <span class="close-modal" id="closeModal">&times;</span>
+            <h3 id="modalTitle">Título de la Herramienta</h3>
+            <div id="modalBody">Contenido de la herramienta simulada...</div>
+        </div>
+    </div>
+    
+    <section class="resources-section" id="resources">
+        <h2 class="section-title">Biblioteca de Recursos</h2>
+        <div class="resources-container">
+            <div class="resource-tabs">
+                <button class="tab-btn active" data-tab="books">Libros Esenciales</button>
+                <button class="tab-btn" data-tab="blogs">Blogs de Referencia</button>
+                <button class="tab-btn" data-tab="courses">Cursos Online</button>
+            </div>
+            
+            <div class="tab-content active" id="tab-books">
+                <div class="resource-grid">
+                    <div class="resource-item"><h4>Designing Brand Identity</h4><p>Alina Wheeler</p><a href="#">Ver →</a></div>
+                    <div class="resource-item"><h4>Building a StoryBrand</h4><p>Donald Miller</p><a href="#">Ver →</a></div>
+                    <div class="resource-item"><h4>Logo Modernism</h4><p>Jens Müller</p><a href="#">Ver →</a></div>
+                </div>
+            </div>
+
+            <div class="tab-content" id="tab-blogs">
+                <div class="resource-grid">
+                    <div class="resource-item"><h4>Brand New</h4><p>UnderConsideration</p><a href="#">Ver →</a></div>
+                    <div class="resource-item"><h4>The Branding Journal</h4><p>Latona</p><a href="#">Ver →</a></div>
+                    <div class="resource-item"><h4>Creative Bloq</h4><p>Future PLC</p><a href="#">Ver →</a></div>
+                </div>
+            </div>
+
+            <div class="tab-content" id="tab-courses">
+                <div class="resource-grid">
+                    <div class="resource-item"><h4>Branding & Identity</h4><p>The Futur Academy</p><a href="#">Ver →</a></div>
+                    <div class="resource-item"><h4>Domestika</h4><p>Cursos de Branding</p><a href="#">Ver →</a></div>
+                    <div class="resource-item"><h4>Coursera</h4><p>Marketing de Marca</p><a href="#">Ver →</a></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>BRAND ACADEMY</h3>
+                <p>Una plataforma educativa para construir marcas con propósito y estrategia.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Explorar</h3>
+                <a href="#principles" class="footer-link">Principios</a>
+                <a href="#typography" class="footer-link">Tipografía</a>
+                <a href="#colors" class="footer-link">Colores</a>
+                <a href="#logos" class="footer-link">Logos</a>
+            </div>
+            <div class="footer-section">
+                <h3>Conectar</h3>
+                <a href="#" class="footer-link">Sobre Nosotros</a>
+                <a href="#" class="footer-link">Contacto</a>
+                <a href="#" class="footer-link">LinkedIn</a>
+                <a href="#" class="footer-link">Instagram</a>
+            </div>
+            <div class="footer-section">
+                <h3>Únete a la Comunidad</h3>
+                <p>Recibe insights y recursos directamente en tu correo.</p>
+                <form class="newsletter-form">
+                    <input type="email" class="newsletter-input" placeholder="tu@email.com">
+                    <button type="submit" class="newsletter-btn">Suscribir</button>
+                </form>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2025 Brand Academy. Diseñado para el aprendizaje.</p>
+        </div>
+    </footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+
+    // --- NAVEGACIÓN Y SCROLL ---
+    const navbar = document.getElementById('navbar');
+    const scrollProgress = document.getElementById('scrollProgress');
+
+    window.addEventListener('scroll', () => {
+        // Navbar scroll effect
+        if (window.scrollY > 50) {
+            navbar.classList.add('scrolled');
+        } else {
+            navbar.classList.remove('scrolled');
+        }
+        
+        // Scroll progress bar
+        const scrollTop = document.documentElement.scrollTop;
+        const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const scrolled = (scrollTop / scrollHeight) * 100;
+        scrollProgress.style.width = scrolled + '%';
+    });
+
+    window.scrollToSection = (sectionId) => {
+        const section = document.getElementById(sectionId);
+        if (section) {
+            section.scrollIntoView({ behavior: 'smooth' });
+        }
+    }
+
+    // --- PRINCIPIOS EXPANDIBLES ---
+    const principleCards = document.querySelectorAll('.principle-card');
+    principleCards.forEach(card => {
+        const button = card.querySelector('.expand-btn');
+        const content = card.querySelector('.expanded-content');
+
+        const toggle = () => {
+            const isExpanded = content.classList.toggle('show');
+            button.textContent = isExpanded ? 'Ver menos detalles' : 'Ver más detalles';
+        };
+        
+        card.addEventListener('click', (e) => {
+             // Solo activa si se hace clic en la tarjeta o el botón, no en el contenido expandido
+            if (e.target.closest('.expanded-content') === null) {
+                toggle();
+            }
+        });
+    });
+
+    // --- LABORATORIO DE TIPOGRAFÍA ---
+    const fontSizeSlider = document.getElementById('fontSizeSlider');
+    const lineHeightSlider = document.getElementById('lineHeightSlider');
+    const fontFamilySelector = document.getElementById('fontFamilySelector');
+    const typographyPreviewText = document.getElementById('typographyPreviewText');
+    const fontSizeValue = document.getElementById('fontSizeValue');
+    const lineHeightValue = document.getElementById('lineHeightValue');
+
+    function updateTypography() {
+        typographyPreviewText.style.fontSize = `${fontSizeSlider.value}px`;
+        typographyPreviewText.style.lineHeight = lineHeightSlider.value;
+        typographyPreviewText.style.fontFamily = fontFamilySelector.value;
+        fontSizeValue.textContent = fontSizeSlider.value;
+        lineHeightValue.textContent = lineHeightSlider.value;
+    }
+
+    fontSizeSlider.addEventListener('input', updateTypography);
+    lineHeightSlider.addEventListener('input', updateTypography);
+    fontFamilySelector.addEventListener('change', updateTypography);
+    updateTypography();
+
+    // --- EXPLORADOR DE COLOR ---
+    const canvas = document.getElementById('colorWheelCanvas');
+    const ctx = canvas.getContext('2d', { willReadFrequently: true });
+    const pickerDot = document.getElementById('colorPickerDot');
+    const colorBox = document.getElementById('selectedColorBox');
+    const colorText = document.getElementById('selectedColorText');
+    const comboContainer = document.getElementById('colorCombinations');
+    const radius = canvas.width / 2;
+
+    function drawColorWheel() {
+        for (let angle = 0; angle < 360; angle++) {
+            const startAngle = (angle - 1) * Math.PI / 180;
+            const endAngle = angle * Math.PI / 180;
+            ctx.beginPath();
+            ctx.moveTo(radius, radius);
+            ctx.arc(radius, radius, radius, startAngle, endAngle);
+            ctx.closePath();
+            ctx.fillStyle = `hsl(${angle}, 100%, 50%)`;
+            ctx.fill();
+        }
+    }
+    
+    function updateColor(x, y) {
+        const rect = canvas.getBoundingClientRect();
+        const relX = x - rect.left;
+        const relY = y - rect.top;
+        
+        const dx = relX - radius;
+        const dy = relY - radius;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+
+        if (distance <= radius) {
+            const pixel = ctx.getImageData(relX, relY, 1, 1).data;
+            const hex = "#" + ("000000" + ((pixel[0] << 16) | (pixel[1] << 8) | pixel[2]).toString(16)).slice(-6);
+            
+            pickerDot.style.left = `${relX}px`;
+            pickerDot.style.top = `${relY}px`;
+            
+            colorBox.style.backgroundColor = hex;
+            colorText.textContent = hex.toUpperCase();
+
+            updateColorPalettes(pixel);
+        }
+    }
+
+    function updateColorPalettes(rgb) {
+        const hsl = rgbToHsl(rgb[0], rgb[1], rgb[2]);
+        const h = hsl[0] * 360;
+
+        // Monochromatic
+        const mono = [
+            `hsl(${h}, 100%, 70%)`, `hsl(${h}, 100%, 50%)`,
+            `hsl(${h}, 100%, 30%)`, `hsl(${h}, 100%, 15%)`
+        ];
+        // Analogous
+        const anlg = [
+            `hsl(${(h + 330) % 360}, 80%, 60%)`, `hsl(${h}, 100%, 50%)`,
+            `hsl(${(h + 30) % 360}, 80%, 60%)`, `hsl(${(h + 60) % 360}, 60%, 70%)`
+        ];
+        // Complementary
+        const comp = [
+            `hsl(${h}, 100%, 50%)`, `hsl(${h}, 60%, 70%)`,
+            `hsl(${(h + 180) % 360}, 80%, 50%)`, `hsl(${(h + 180) % 360}, 60%, 70%)`
+        ];
+        
+        const palettes = [mono, anlg, comp];
+        const cards = comboContainer.querySelectorAll('.color-combo-card');
+        cards.forEach((card, i) => {
+            const swatches = card.querySelectorAll('.color-swatch');
+            swatches.forEach((swatch, j) => {
+                swatch.style.backgroundColor = palettes[i][j];
+            });
+        });
+    }
+    
+    canvas.addEventListener('click', (e) => updateColor(e.clientX, e.clientY));
+    drawColorWheel();
+    updateColor(canvas.getBoundingClientRect().left + radius, canvas.getBoundingClientRect().top + (radius/2)); // Init
+
+    // --- CONSTRUCTOR DE LOGOS ---
+    const logoTextInput = document.getElementById('logoTextInput');
+    const shapeSelector = document.getElementById('shapeSelector');
+    const iconSizeSlider = document.getElementById('iconSizeSlider');
+    const logoTextSizeSlider = document.getElementById('logoTextSizeSlider');
+    const iconColorPicker = document.getElementById('iconColorPicker');
+    const logoPreviewIcon = document.getElementById('logoPreviewIcon');
+    const logoPreviewText = document.getElementById('logoPreviewText');
+    const iconSizeValue = document.getElementById('iconSizeValue');
+    const logoTextSizeValue = document.getElementById('logoTextSizeValue');
+    
+    const shapes = {
+        circle: '<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="48"/></svg>',
+        square: '<svg viewBox="0 0 100 100"><rect x="2" y="2" width="96" height="96"/></svg>',
+        triangle: '<svg viewBox="0 0 100 100"><polygon points="50,2 98,98 2,98"/></svg>',
+        hexagon: '<svg viewBox="0 0 100 100"><polygon points="75,2 98,50 75,98 25,98 2,50 25,2"/></svg>'
+    };
+    let currentShape = 'circle';
+
+    function updateLogo() {
+        logoPreviewText.textContent = logoTextInput.value;
+        logoPreviewText.style.fontSize = `${logoTextSizeSlider.value}px`;
+        logoPreviewIcon.innerHTML = shapes[currentShape];
+        logoPreviewIcon.style.width = `${iconSizeSlider.value}px`;
+        logoPreviewIcon.style.height = `${iconSizeSlider.value}px`;
+        logoPreviewIcon.style.fill = iconColorPicker.value;
+        iconSizeValue.textContent = iconSizeSlider.value;
+        logoTextSizeValue.textContent = logoTextSizeSlider.value;
+    }
+
+    shapeSelector.addEventListener('click', (e) => {
+        const btn = e.target.closest('.shape-btn');
+        if (btn) {
+            shapeSelector.querySelector('.active').classList.remove('active');
+            btn.classList.add('active');
+            currentShape = btn.dataset.shape;
+            updateLogo();
+        }
+    });
+    
+    logoTextInput.addEventListener('input', updateLogo);
+    iconSizeSlider.addEventListener('input', updateLogo);
+    logoTextSizeSlider.addEventListener('input', updateLogo);
+    iconColorPicker.addEventListener('input', updateLogo);
+    updateLogo();
+
+    // --- CONTADORES DE MÉTRICAS ---
+    const counters = document.querySelectorAll('.metric-number');
+    const speed = 200; 
+
+    const animateCounters = () => {
+        counters.forEach(counter => {
+            const updateCount = () => {
+                const target = +counter.getAttribute('data-count');
+                const count = +counter.innerText;
+                const inc = target / speed;
+
+                if (count < target) {
+                    counter.innerText = Math.ceil(count + inc);
+                    setTimeout(updateCount, 1);
+                } else {
+                    counter.innerText = target;
+                }
+            };
+            updateCount();
+        });
+    };
+    
+    const observerOptions = { root: null, threshold: 0.5 };
+    const counterObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                animateCounters();
+                observer.unobserve(entry.target);
+            }
+        });
+    }, observerOptions);
+
+    const metricsSection = document.getElementById('cases');
+    if(metricsSection) counterObserver.observe(metricsSection);
+
+
+    // --- MODAL DE HERRAMIENTAS ---
+    const toolModal = document.getElementById('toolModal');
+    const closeModalBtn = document.getElementById('closeModal');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalBody = document.getElementById('modalBody');
+    const toolCards = document.querySelectorAll('.tool-card');
+
+    const toolContent = {
+        name: { title: "Generador de Nombres", body: "Simulación: Introduce palabras clave como 'minimalista', 'eco', 'tech' y te sugeriremos nombres como 'EcoMinimal' o 'TechZen'. Esta es una demostración de la funcionalidad." },
+        palette: { title: "Creador de Paletas", body: "Simulación: Sube una imagen de un paisaje y extraeremos una paleta de colores tierra y cielo. O elige un color base, como un azul corporativo, y generaremos tonos complementarios y análogos. Esta es una demostración." },
+        voice: { title: "Definidor de Voz de Marca", body: "Simulación: Responde a un cuestionario interactivo: ¿Tu marca es formal o casual? ¿Humorística o seria? ¿Experta o amigable? Al final, te daremos un resumen de tu arquetipo de voz, como 'El Sabio' o 'El Compinche'." }
+    };
+    
+    toolCards.forEach(card => {
+        card.addEventListener('click', () => {
+            const tool = card.dataset.tool;
+            modalTitle.textContent = toolContent[tool].title;
+            modalBody.textContent = toolContent[tool].body;
+            toolModal.classList.add('show');
+        });
+    });
+
+    closeModalBtn.addEventListener('click', () => toolModal.classList.remove('show'));
+    toolModal.addEventListener('click', (e) => {
+        if (e.target === toolModal) {
+            toolModal.classList.remove('show');
+        }
+    });
+
+    // --- PESTAÑAS DE RECURSOS ---
+    const tabsContainer = document.querySelector('.resource-tabs');
+    const tabContents = document.querySelectorAll('.tab-content');
+    
+    tabsContainer.addEventListener('click', (e) => {
+        const clickedTab = e.target.closest('.tab-btn');
+        if (!clickedTab) return;
+
+        tabsContainer.querySelector('.active').classList.remove('active');
+        clickedTab.classList.add('active');
+
+        tabContents.forEach(content => content.classList.remove('active'));
+        document.getElementById(`tab-${clickedTab.dataset.tab}`).classList.add('active');
+    });
+    
+    // --- HELPERS ---
+    function rgbToHsl(r, g, b) {
+        r /= 255, g /= 255, b /= 255;
+        let max = Math.max(r, g, b), min = Math.min(r, g, b);
+        let h, s, l = (max + min) / 2;
+
+        if (max == min) {
+            h = s = 0; 
+        } else {
+            let d = max - min;
+            s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+            switch (max) {
+                case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+                case g: h = (b - r) / d + 2; break;
+                case b: h = (r - g) / d + 4; break;
+            }
+            h /= 6;
+        }
+        return [h, s, l];
+    }
+});
+</script>
+
+</body>
+</html>
